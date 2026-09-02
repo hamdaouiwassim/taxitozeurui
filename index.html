@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tozeur VIP Taxi - Premium Service</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-taxi"></i>
+        <span class="logo-text">Tozeur VIP Taxi <small>Premium Service</small></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Our Services</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#" class="btn btn-primary">Book a Taxi</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars" id="menuIcon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1>Your ride starts <span class="highlight">here</span></h1>
+      <p>Book the nearest taxi in your city and travel comfortably, safely and quickly.</p>
+      <a href="#fleet" class="btn btn-primary btn-lg">View Available Taxis <i class="fas fa-taxi hero-btn-icon"></i></a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">Choose the ride that suits your needs</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-briefcase"></i></div>
+          <h3>Business Class</h3>
+          <p>Premium vehicles for corporate travel with professional drivers.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-users"></i></div>
+          <h3>Shared Ride</h3>
+          <p>Save money by sharing your ride with other passengers heading the same way.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-plane"></i></div>
+          <h3>Airport Transfer</h3>
+          <p>Reliable airport pickups and drop-offs with flight tracking.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-clock"></i></div>
+          <h3>Schedule Ride</h3>
+          <p>Book your ride in advance and travel stress-free.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fleet / Taxis List Section -->
+  <section class="fleet" id="fleet">
+    <div class="container">
+      <h2 class="section-title">Our Fleet</h2>
+      <p class="section-subtitle">Select from our range of well-maintained vehicles</p>
+      <div class="fleet-grid">
+        <div class="fleet-card">
+          <div class="fleet-image">
+            <i class="fas fa-car"></i>
+          </div>
+          <div class="fleet-info">
+            <h3>Economy</h3>
+            <p>Affordable everyday rides</p>
+            <div class="fleet-details">
+              <span><i class="fas fa-users"></i> 4 Seats</span>
+              <span><i class="fas fa-suitcase"></i> 2 Bags</span>
+            </div>
+            <div class="fleet-price">$1.50 <small>/km</small></div>
+            <button class="btn btn-primary btn-block">Book Now</button>
+          </div>
+        </div>
+        <div class="fleet-card featured">
+          <div class="fleet-badge">Popular</div>
+          <div class="fleet-image">
+            <i class="fas fa-car-side"></i>
+          </div>
+          <div class="fleet-info">
+            <h3>Comfort</h3>
+            <p>Spacious rides for extra comfort</p>
+            <div class="fleet-details">
+              <span><i class="fas fa-users"></i> 4 Seats</span>
+              <span><i class="fas fa-suitcase"></i> 3 Bags</span>
+            </div>
+            <div class="fleet-price">$2.20 <small>/km</small></div>
+            <button class="btn btn-primary btn-block">Book Now</button>
+          </div>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-image">
+            <i class="fas fa-shuttle-van"></i>
+          </div>
+          <div class="fleet-info">
+            <h3>Van</h3>
+            <p>Group travel made easy</p>
+            <div class="fleet-details">
+              <span><i class="fas fa-users"></i> 7 Seats</span>
+              <span><i class="fas fa-suitcase"></i> 5 Bags</span>
+            </div>
+            <div class="fleet-price">$3.00 <small>/km</small></div>
+            <button class="btn btn-primary btn-block">Book Now</button>
+          </div>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-image">
+            <i class="fas fa-car"></i>
+          </div>
+          <div class="fleet-info">
+            <h3>Luxury</h3>
+            <p>Premium vehicles, top-notch service</p>
+            <div class="fleet-details">
+              <span><i class="fas fa-users"></i> 3 Seats</span>
+              <span><i class="fas fa-suitcase"></i> 2 Bags</span>
+            </div>
+            <div class="fleet-price">$4.50 <small>/km</small></div>
+            <button class="btn btn-primary btn-block">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container about-container">
+      <div class="about-image">
+        <i class="fas fa-road"></i>
+      </div>
+      <div class="about-content">
+        <h2>Why Choose Tozeur VIP Taxi?</h2>
+        <p>We are committed to providing the best ride experience with safety, comfort, and affordability as our core values.</p>
+        <ul class="about-list">
+          <li><i class="fas fa-check-circle"></i> 24/7 Availability - Rides anytime, anywhere</li>
+          <li><i class="fas fa-check-circle"></i> Verified Drivers - All drivers undergo background checks</li>
+          <li><i class="fas fa-check-circle"></i> Transparent Pricing - No hidden fees, ever</li>
+          <li><i class="fas fa-check-circle"></i> Real-time Tracking - Know exactly where your ride is</li>
+          <li><i class="fas fa-check-circle"></i> Safe & Secure - Emergency button and trip sharing</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-subtitle">Have questions? We'd love to hear from you.</p>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h4>Address</h4>
+              <p>123 Ride Street, Taxi City, TC 12345</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h4>Phone</h4>
+              <p>+1 (555) 123-4567</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <h4>Email</h4>
+              <p>support@taxigo.com</p>
+            </div>
+          </div>
+          <div class="contact-socials">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <form class="contact-form">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <input type="text" placeholder="Subject">
+          <textarea placeholder="Your Message" rows="5" required></textarea>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="logo">
+            <i class="fas fa-taxi"></i> Tozeur VIP Taxi
+          </a>
+          <p>Making transportation accessible, affordable, and safe for everyone.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#fleet">Fleet</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Safety</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Download App</h4>
+          <div class="app-buttons">
+            <a href="#" class="app-btn"><i class="fab fa-apple"></i> App Store</a>
+            <a href="#" class="app-btn"><i class="fab fa-google-play"></i> Google Play</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Tozeur VIP Taxi. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
