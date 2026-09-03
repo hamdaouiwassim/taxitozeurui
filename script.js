@@ -81,6 +81,43 @@ if (revealElements.length) {
   checkReveals();
 }
 
+// ==================== LOGIN ====================
+const loginForm = document.getElementById('loginForm');
+const loginError = document.getElementById('loginError');
+const togglePass = document.getElementById('togglePass');
+const loginPassword = document.getElementById('loginPassword');
+
+if (togglePass && loginPassword) {
+  togglePass.addEventListener('click', () => {
+    const isPassword = loginPassword.type === 'password';
+    loginPassword.type = isPassword ? 'text' : 'password';
+    togglePass.innerHTML = `<i class="fas fa-eye${isPassword ? '-slash' : ''}"></i>`;
+  });
+}
+
+if (loginForm) {
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = loginPassword.value.trim();
+
+    if (email === 'admin@taxigo.com' && password === 'admin123') {
+      localStorage.setItem('taxiAdminAuth', 'true');
+      window.location.href = 'dashboard.html';
+    } else {
+      loginError.classList.add('visible');
+      setTimeout(() => loginError.classList.remove('visible'), 3000);
+    }
+  });
+}
+
+// Dashboard auth guard
+if (window.location.pathname.includes('dashboard.html')) {
+  if (!localStorage.getItem('taxiAdminAuth')) {
+    window.location.href = 'login.html';
+  }
+}
+
 // Available taxis search & filter
 const driverSearch = document.getElementById('driverSearch');
 const typeFilter = document.getElementById('typeFilter');
@@ -322,6 +359,33 @@ const addDriverBtn = document.getElementById('addDriverBtn');
 if (addDriverBtn) {
   addDriverBtn.addEventListener('click', () => {
     showToast('Driver registration form coming soon!');
+  });
+}
+
+// User dropdown toggle
+const userMenuToggle = document.getElementById('userMenuToggle');
+const userMenu = document.querySelector('.user-menu');
+
+if (userMenuToggle) {
+  userMenuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    userMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!userMenu.contains(e.target)) {
+      userMenu.classList.remove('open');
+    }
+  });
+}
+
+// Logout
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('taxiAdminAuth');
+    window.location.href = 'login.html';
   });
 }
 

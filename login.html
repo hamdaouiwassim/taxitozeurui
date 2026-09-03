@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tozeur VIP Taxi - Admin Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="login-body">
+
+  <div class="login-wrapper">
+    <div class="login-left">
+      <div class="login-brand">
+        <a href="index.html" class="logo">
+          <i class="fas fa-taxi"></i>
+          <span class="logo-text">Tozeur VIP Taxi <small>Premium Service</small></span>
+        </a>
+      </div>
+      <div class="login-hero-content">
+        <h1>Welcome back</h1>
+        <p>Sign in to manage your taxis, drivers, and bookings.</p>
+      </div>
+      <div class="login-bg-icon">
+        <i class="fas fa-taxi"></i>
+      </div>
+    </div>
+    <div class="login-right">
+      <div class="login-card">
+        <div class="login-card-header">
+          <h2>Admin Login</h2>
+          <p>Enter your credentials to access the dashboard</p>
+        </div>
+        <form id="loginForm">
+          <div class="login-field">
+            <label for="loginEmail">Email</label>
+            <div class="login-input-wrap">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="loginEmail" placeholder="admin@taxigo.com" value="admin@taxigo.com" required>
+            </div>
+          </div>
+          <div class="login-field">
+            <label for="loginPassword">Password</label>
+            <div class="login-input-wrap">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="loginPassword" placeholder="Enter your password" value="admin123" required>
+              <button type="button" class="toggle-pass" id="togglePass">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="login-options">
+            <label class="login-checkbox">
+              <input type="checkbox" checked>
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="login-forgot">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+          <div class="login-error" id="loginError">
+            <i class="fas fa-exclamation-circle"></i> Invalid email or password
+          </div>
+        </form>
+        <div class="login-footer">
+          <p>&copy; 2026 Tozeur VIP Taxi. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
