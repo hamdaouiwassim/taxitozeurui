@@ -40,32 +40,146 @@
     <div class="container hero-content">
       <h1>Your ride starts <span class="highlight">here</span></h1>
       <p>Book the nearest taxi in your city and travel comfortably, safely and quickly.</p>
-      <a href="#fleet" class="btn btn-primary btn-lg">View Available Taxis <i class="fas fa-taxi hero-btn-icon"></i></a>
+      <a href="#available" class="btn btn-primary btn-lg">View Available Taxis <i class="fas fa-taxi hero-btn-icon"></i></a>
+    </div>
+  </section>
+
+  <!-- Available Taxis Section -->
+  <section class="available" id="available">
+    <div class="container">
+      <h2 class="section-title reveal">Available Taxis</h2>
+      <p class="section-subtitle reveal" data-delay="1">Find your perfect driver and start chatting instantly</p>
+      <div class="available-filters reveal" data-delay="2">
+        <div class="filter-search">
+          <i class="fas fa-search"></i>
+          <input type="text" id="driverSearch" placeholder="Search by driver or vehicle...">
+        </div>
+        <select id="typeFilter">
+          <option value="all">All Types</option>
+          <option value="economy">Economy</option>
+          <option value="comfort">Comfort</option>
+          <option value="van">Van</option>
+          <option value="luxury">Luxury</option>
+        </select>
+      </div>
+      <div class="available-grid">
+        <div class="driver-card reveal">
+          <img src="./asstes/images/47f7a327-5fa8-47db-a183-d4f127272c07.png" alt="Toyota Prius" class="vehicle-image">
+          <div class="card-divider"></div>
+          <div class="card-body">
+            <div class="driver-avatar">
+              <img src="https://ui-avatars.com/api/?name=Alex+Turner&background=2563eb&color=fff&size=128&rounded=true" alt="Alex Turner">
+            </div>
+            <h3>Alex Turner</h3>
+            <div class="driver-rating">
+              <i class="fas fa-star"></i>
+              <span>4.9</span>
+              <small>(212 reviews)</small>
+            </div>
+            <div class="driver-location">
+              <i class="fas fa-map-marker-alt"></i> Downtown, Tozeur
+            </div>
+            <a href="https://wa.me/21600000000?text=Hi%20Alex%2C%20I%27d%20like%20to%20book%20your%20taxi" target="_blank" class="btn btn-success btn-block">
+              <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+          </div>
+          <span class="driver-type">Economy</span>
+        </div>
+
+        <div class="driver-card reveal" data-delay="1">
+          <img src="./asstes/images/taxi2.jpg" alt="Toyota Prius" class="vehicle-image">
+          <div class="card-divider"></div>
+          <div class="card-body">
+            <div class="driver-avatar">
+              <img src="https://ui-avatars.com/api/?name=Lisa+Anderson&background=16a34a&color=fff&size=128&rounded=true" alt="Lisa Anderson">
+            </div>
+            <h3>Lisa Anderson</h3>
+            <div class="driver-rating">
+              <i class="fas fa-star"></i>
+              <span>4.8</span>
+              <small>(178 reviews)</small>
+            </div>
+            <div class="driver-location">
+              <i class="fas fa-map-marker-alt"></i> City Center, Tozeur
+            </div>
+            <a href="https://wa.me/21600000001?text=Hi%20Lisa%2C%20I%27d%20like%20to%20book%20your%20taxi" target="_blank" class="btn btn-success btn-block">
+              <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+          </div>
+          <span class="driver-type">Comfort</span>
+        </div>
+
+        <div class="driver-card reveal" data-delay="2">
+          <img src="./asstes/images/taxi3.jpg" alt="Toyota Prius" class="vehicle-image">
+          <div class="card-divider"></div>
+          <div class="card-body">
+            <div class="driver-avatar">
+              <img src="https://ui-avatars.com/api/?name=Robert+Martinez&background=d97706&color=fff&size=128&rounded=true" alt="Robert Martinez">
+            </div>
+            <h3>Robert Martinez</h3>
+            <div class="driver-rating">
+              <i class="fas fa-star"></i>
+              <span>4.7</span>
+              <small>(145 reviews)</small>
+            </div>
+            <div class="driver-location">
+              <i class="fas fa-map-marker-alt"></i> Airport, Tozeur
+            </div>
+            <a href="https://wa.me/21600000002?text=Hi%20Robert%2C%20I%27d%20like%20to%20book%20your%20taxi" target="_blank" class="btn btn-success btn-block">
+              <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+          </div>
+          <span class="driver-type">Van</span>
+        </div>
+
+        <div class="driver-card reveal" data-delay="3">
+          <img src="./asstes/images/47f7a327-5fa8-47db-a183-d4f127272c07.png" alt="Toyota Prius" class="vehicle-image">
+          <div class="card-divider"></div>
+          <div class="card-body">
+            <div class="driver-avatar">
+              <img src="https://ui-avatars.com/api/?name=Jessica+White&background=db2777&color=fff&size=128&rounded=true" alt="Jessica White">
+            </div>
+            <h3>Jessica White</h3>
+            <div class="driver-rating">
+              <i class="fas fa-star"></i>
+              <span>4.9</span>
+              <small>(198 reviews)</small>
+            </div>
+            <div class="driver-location">
+              <i class="fas fa-map-marker-alt"></i> Palm Grove, Tozeur
+            </div>
+            <a href="https://wa.me/21600000003?text=Hi%20Jessica%2C%20I%27d%20like%20to%20book%20your%20taxi" target="_blank" class="btn btn-success btn-block">
+              <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+          </div>
+          <span class="driver-type">Luxury</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Services Section -->
   <section class="services" id="services">
     <div class="container">
-      <h2 class="section-title">Our Services</h2>
-      <p class="section-subtitle">Choose the ride that suits your needs</p>
+      <h2 class="section-title reveal">Our Services</h2>
+      <p class="section-subtitle reveal" data-delay="1">Choose the ride that suits your needs</p>
       <div class="services-grid">
-        <div class="service-card">
+        <div class="service-card reveal">
           <div class="service-icon"><i class="fas fa-briefcase"></i></div>
           <h3>Business Class</h3>
           <p>Premium vehicles for corporate travel with professional drivers.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card reveal" data-delay="1">
           <div class="service-icon"><i class="fas fa-users"></i></div>
           <h3>Shared Ride</h3>
           <p>Save money by sharing your ride with other passengers heading the same way.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card reveal" data-delay="2">
           <div class="service-icon"><i class="fas fa-plane"></i></div>
           <h3>Airport Transfer</h3>
           <p>Reliable airport pickups and drop-offs with flight tracking.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card reveal" data-delay="3">
           <div class="service-icon"><i class="fas fa-clock"></i></div>
           <h3>Schedule Ride</h3>
           <p>Book your ride in advance and travel stress-free.</p>
@@ -74,84 +188,13 @@
     </div>
   </section>
 
-  <!-- Fleet / Taxis List Section -->
-  <section class="fleet" id="fleet">
-    <div class="container">
-      <h2 class="section-title">Our Fleet</h2>
-      <p class="section-subtitle">Select from our range of well-maintained vehicles</p>
-      <div class="fleet-grid">
-        <div class="fleet-card">
-          <div class="fleet-image">
-            <i class="fas fa-car"></i>
-          </div>
-          <div class="fleet-info">
-            <h3>Economy</h3>
-            <p>Affordable everyday rides</p>
-            <div class="fleet-details">
-              <span><i class="fas fa-users"></i> 4 Seats</span>
-              <span><i class="fas fa-suitcase"></i> 2 Bags</span>
-            </div>
-            <div class="fleet-price">$1.50 <small>/km</small></div>
-            <button class="btn btn-primary btn-block">Book Now</button>
-          </div>
-        </div>
-        <div class="fleet-card featured">
-          <div class="fleet-badge">Popular</div>
-          <div class="fleet-image">
-            <i class="fas fa-car-side"></i>
-          </div>
-          <div class="fleet-info">
-            <h3>Comfort</h3>
-            <p>Spacious rides for extra comfort</p>
-            <div class="fleet-details">
-              <span><i class="fas fa-users"></i> 4 Seats</span>
-              <span><i class="fas fa-suitcase"></i> 3 Bags</span>
-            </div>
-            <div class="fleet-price">$2.20 <small>/km</small></div>
-            <button class="btn btn-primary btn-block">Book Now</button>
-          </div>
-        </div>
-        <div class="fleet-card">
-          <div class="fleet-image">
-            <i class="fas fa-shuttle-van"></i>
-          </div>
-          <div class="fleet-info">
-            <h3>Van</h3>
-            <p>Group travel made easy</p>
-            <div class="fleet-details">
-              <span><i class="fas fa-users"></i> 7 Seats</span>
-              <span><i class="fas fa-suitcase"></i> 5 Bags</span>
-            </div>
-            <div class="fleet-price">$3.00 <small>/km</small></div>
-            <button class="btn btn-primary btn-block">Book Now</button>
-          </div>
-        </div>
-        <div class="fleet-card">
-          <div class="fleet-image">
-            <i class="fas fa-car"></i>
-          </div>
-          <div class="fleet-info">
-            <h3>Luxury</h3>
-            <p>Premium vehicles, top-notch service</p>
-            <div class="fleet-details">
-              <span><i class="fas fa-users"></i> 3 Seats</span>
-              <span><i class="fas fa-suitcase"></i> 2 Bags</span>
-            </div>
-            <div class="fleet-price">$4.50 <small>/km</small></div>
-            <button class="btn btn-primary btn-block">Book Now</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- About Section -->
   <section class="about" id="about">
     <div class="container about-container">
-      <div class="about-image">
+      <div class="about-image reveal">
         <i class="fas fa-road"></i>
       </div>
-      <div class="about-content">
+      <div class="about-content reveal" data-delay="1">
         <h2>Why Choose Tozeur VIP Taxi?</h2>
         <p>We are committed to providing the best ride experience with safety, comfort, and affordability as our core values.</p>
         <ul class="about-list">
@@ -169,10 +212,10 @@
   <!-- Contact Section -->
   <section class="contact" id="contact">
     <div class="container">
-      <h2 class="section-title">Get In Touch</h2>
-      <p class="section-subtitle">Have questions? We'd love to hear from you.</p>
+      <h2 class="section-title reveal">Get In Touch</h2>
+      <p class="section-subtitle reveal" data-delay="1">Have questions? We'd love to hear from you.</p>
       <div class="contact-grid">
-        <div class="contact-info">
+        <div class="contact-info reveal">
           <div class="contact-item">
             <i class="fas fa-map-marker-alt"></i>
             <div>
@@ -201,7 +244,7 @@
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
-        <form class="contact-form">
+        <form class="contact-form reveal" data-delay="2">
           <input type="text" placeholder="Your Name" required>
           <input type="email" placeholder="Your Email" required>
           <input type="text" placeholder="Subject">
@@ -215,7 +258,7 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-grid">
+      <div class="footer-grid reveal">
         <div class="footer-col">
           <a href="index.html" class="logo">
             <i class="fas fa-taxi"></i> Tozeur VIP Taxi
@@ -227,7 +270,7 @@
           <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#services">Services</a></li>
-            <li><a href="#fleet">Fleet</a></li>
+            <li><a href="#available">Taxis</a></li>
             <li><a href="#about">About</a></li>
           </ul>
         </div>

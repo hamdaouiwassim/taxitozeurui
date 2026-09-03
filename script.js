@@ -62,6 +62,45 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
+// Scroll reveal animations
+const revealElements = document.querySelectorAll('.reveal');
+
+function checkReveals() {
+  const windowHeight = window.innerHeight;
+  revealElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < windowHeight - 80) {
+      el.classList.add('active');
+    }
+  });
+}
+
+if (revealElements.length) {
+  window.addEventListener('scroll', checkReveals);
+  window.addEventListener('load', checkReveals);
+  checkReveals();
+}
+
+// Available taxis search & filter
+const driverSearch = document.getElementById('driverSearch');
+const typeFilter = document.getElementById('typeFilter');
+const driverCards = document.querySelectorAll('.available-grid .driver-card');
+
+function filterDrivers() {
+  const search = driverSearch ? driverSearch.value.toLowerCase() : '';
+  const type = typeFilter ? typeFilter.value : 'all';
+
+  driverCards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    const matchSearch = text.includes(search);
+    const matchType = type === 'all' || card.textContent.toLowerCase().includes(type);
+    card.style.display = matchSearch && matchType ? '' : 'none';
+  });
+}
+
+if (driverSearch) driverSearch.addEventListener('input', filterDrivers);
+if (typeFilter) typeFilter.addEventListener('change', filterDrivers);
+
 // ==================== DASHBOARD ====================
 // Tab Navigation
 const sidebarLinks = document.querySelectorAll('.sidebar-menu a[data-tab]');
