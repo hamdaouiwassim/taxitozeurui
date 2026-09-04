@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Driver;
 use App\Models\Review;
+use Goedemiddag\ReCaptcha\Rules\ReCaptchaRule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -28,6 +29,7 @@ class DriverController extends Controller
             'email' => 'nullable|email|max:100',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'required|string|max:1000',
+            'g-recaptcha-response' => ['required', new ReCaptchaRule],
         ]);
 
         $colors = ['16a34a', 'd97706', 'db2777', '2563eb', '7c3aed', '0891b2'];

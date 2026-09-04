@@ -224,7 +224,7 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <form method="POST" action="{{ route('drivers.reviews.store', $driver) }}">
+      <form method="POST" action="{{ route('drivers.reviews.store', $driver) }}" id="reviewForm">
         @csrf
         <div class="form-group">
           <label>Your Name</label>
@@ -254,6 +254,7 @@
           <label>Your Review</label>
           <textarea name="comment" rows="4" placeholder="Tell us about your experience..." required></textarea>
         </div>
+        <x-recaptcha::input />
         <button type="submit" class="btn btn-primary btn-block">
           <i class="fas fa-paper-plane"></i> Submit Review
         </button>
@@ -297,3 +298,22 @@
     </div>
   </footer>
 @endsection
+
+@push('scripts')
+  <x-recaptcha::script />
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('reviewForm');
+      if (form && window.reCaptcha) {
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          window.reCaptcha.render('review', (token) => {
+            const input = form.querySelector('input[name="g-recaptcha-response"]');
+            if (input) input.value = token;
+            form.submit();
+          });
+        });
+      }
+    });
+  </script>
+@endpush

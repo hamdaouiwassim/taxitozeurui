@@ -47,6 +47,7 @@ class AppFlowTest extends TestCase
             'user_name' => 'Test Reviewer',
             'rating' => 5,
             'comment' => 'Great ride!',
+            'g-recaptcha-response' => 'dummy-token',
         ]);
 
         $response->assertRedirect();
