@@ -53,6 +53,6 @@ class DriverController extends Controller
             'rating' => $count > 0 ? round($sum / $count, 1) : 0,
         ]);
 
-        return back()->with('success', 'Review submitted successfully!');
+        return back()->with('success', __('Review submitted successfully!'));
     }
 }

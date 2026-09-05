@@ -6,7 +6,7 @@
   <div class="dashboard-content">
     <div class="content-header">
       <h2>Manage Taxis</h2>
-      <button class="btn btn-primary" data-modal-open="addTaxiModal"><i class="fas fa-plus"></i> Add Taxi</button>
+      <a href="{{ route('dashboard.taxis.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Taxi</a>
     </div>
     <div class="filter-bar">
       <input type="text" placeholder="Search taxis..." id="taxiSearch">
@@ -34,16 +34,23 @@
             </td>
             <td>{{ $driver->name }}</td>
             <td>{{ ucfirst($driver->taxi?->type) }}</td>
-            <td><span class="status {{ $driver->is_active ? 'active' : 'inactive' }}">{{ $driver->is_active ? 'Active' : 'Inactive' }}</span></td>
+            <td>
+              @if ($driver->taxi)
+                <span class="status {{ $driver->taxi->is_active ? 'active' : 'inactive' }}">{{ $driver->taxi->is_active ? 'Available' : 'Unavailable' }}</span>
+              @else
+                <span class="status inactive">No taxi</span>
+              @endif
+            </td>
             <td class="actions">
-              <button class="action-btn edit edit-taxi" data-edit-taxi
-                data-driver-id="{{ $driver->id }}"
-                data-driver-name="{{ $driver->name }}"
-                data-name="{{ $driver->taxi?->name }}"
-                data-type="{{ $driver->taxi?->type }}"
-                data-color="{{ $driver->taxi?->color }}"
-                data-capacity="{{ $driver->taxi?->capacity }}"
-                title="Edit taxi"><i class="fas fa-pen"></i></button>
+              <a href="{{ route('dashboard.taxis.edit', $driver) }}" class="action-btn edit" title="Edit taxi"><i class="fas fa-pen"></i></a>
+              @if ($driver->taxi)
+              <button class="action-btn edit" title="Toggle availability"
+                onclick="document.getElementById('taxi-toggle-{{ $driver->taxi->id }}').submit()"><i class="fas {{ $driver->taxi->is_active ? 'fa-pause' : 'fa-play' }}"></i></button>
+              <form id="taxi-toggle-{{ $driver->taxi->id }}" method="POST" action="{{ route('dashboard.taxis.availability', $driver->taxi) }}" style="display:none">
+                @csrf
+                @method('PUT')
+              </form>
+              @endif
               <form method="POST" action="{{ route('dashboard.taxis.destroy', $driver) }}" data-confirm="Delete {{ $driver->taxi?->name }}?">
                 @csrf
                 @method('DELETE')
@@ -56,104 +63,6 @@
         @endforelse
       </tbody>
     </table>
-  </div>
-
-  <!-- Add Taxi Modal -->
-  <div class="modal" id="addTaxiModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Add Taxi</h3>
-        <button class="modal-close" data-modal-close><i class="fas fa-times"></i></button>
-      </div>
-      <form method="POST" action="{{ route('dashboard.taxis.store') }}" enctype="multipart/form-data">
-        @csrf
-        <div class="form-group">
-          <label>Driver</label>
-          <select name="driver_id" required>
-            @foreach ($drivers as $driver)
-              <option value="{{ $driver->id }}">{{ $driver->name }}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Car Name</label>
-          <input type="text" name="name" placeholder="e.g. Mercedes Vito" required>
-        </div>
-        <div class="form-group">
-          <label>Vehicle Type</label>
-          <select name="type">
-            <option value="economy">Economy</option>
-            <option value="comfort">Comfort</option>
-            <option value="van">Van</option>
-            <option value="luxury">Luxury</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Color</label>
-          <input type="text" name="color" placeholder="e.g. White">
-        </div>
-        <div class="form-group">
-          <label>Capacity</label>
-          <input type="text" name="capacity" placeholder="e.g. 4 Passengers">
-        </div>
-        <div class="form-group">
-          <label>Car Image</label>
-          <input type="file" name="image" accept="image/*">
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
-          <button type="submit" class="btn btn-primary">Add Taxi</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Edit Taxi Modal -->
-  <div class="modal" id="editTaxiModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Edit Taxi</h3>
-        <button class="modal-close" data-modal-close><i class="fas fa-times"></i></button>
-      </div>
-      <form method="POST" action="" id="editTaxiForm" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="form-group">
-          <label>Driver</label>
-          <input type="text" id="edit_taxi_driver" disabled>
-          <input type="hidden" name="driver_id" id="edit_taxi_driver_id">
-        </div>
-        <div class="form-group">
-          <label>Car Name</label>
-          <input type="text" name="name" id="edit_taxi_name" required>
-        </div>
-        <div class="form-group">
-          <label>Vehicle Type</label>
-          <select name="type" id="edit_taxi_type">
-            <option value="economy">Economy</option>
-            <option value="comfort">Comfort</option>
-            <option value="van">Van</option>
-            <option value="luxury">Luxury</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Color</label>
-          <input type="text" name="color" id="edit_taxi_color" placeholder="e.g. White">
-        </div>
-        <div class="form-group">
-          <label>Capacity</label>
-          <input type="text" name="capacity" id="edit_taxi_capacity" placeholder="e.g. 4 Passengers">
-        </div>
-        <div class="form-group">
-          <label>Car Image</label>
-          <input type="file" name="image" accept="image/*">
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
-        </div>
-      </form>
-    </div>
   </div>
 @endsection
 
@@ -168,20 +77,5 @@
         });
       });
     }
-
-    document.querySelectorAll('[data-edit-taxi]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const modal = document.getElementById('editTaxiModal');
-        const form = document.getElementById('editTaxiForm');
-        form.action = '/dashboard/taxis';
-        document.getElementById('edit_taxi_driver').value = btn.dataset.driverName || '';
-        document.getElementById('edit_taxi_driver_id').value = btn.dataset.driverId || '';
-        document.getElementById('edit_taxi_name').value = btn.dataset.name || '';
-        document.getElementById('edit_taxi_type').value = btn.dataset.type || 'economy';
-        document.getElementById('edit_taxi_color').value = btn.dataset.color || '';
-        document.getElementById('edit_taxi_capacity').value = btn.dataset.capacity || '';
-        modal.classList.add('active');
-      });
-    });
   </script>
 @endpush

@@ -41,6 +41,30 @@ class DashboardController extends Controller
         return view('dashboard.drivers', compact('drivers'));
     }
 
+    public function createDriver(): View
+    {
+        return view('dashboard.drivers-create');
+    }
+
+    public function editDriver(Driver $driver): View
+    {
+        return view('dashboard.drivers-edit', compact('driver'));
+    }
+
+    public function createTaxi(): View
+    {
+        $drivers = Driver::with('taxi')->get();
+
+        return view('dashboard.taxis-create', compact('drivers'));
+    }
+
+    public function editTaxi(Driver $driver): View
+    {
+        $driver->load('taxi');
+
+        return view('dashboard.taxis-edit', compact('driver'));
+    }
+
     public function reviews(): View
     {
         $reviews = Review::with('driver')->latest()->get();
@@ -63,6 +87,10 @@ class DashboardController extends Controller
             'whatsapp' => 'nullable|string|max:30',
             'location' => 'nullable|string|max:150',
             'years_experience' => 'nullable|integer|min:0',
+            'work_start' => 'nullable|date_format:H:i',
+            'work_end' => 'nullable|date_format:H:i',
+            'work_days' => 'nullable|array',
+            'work_days.*' => 'integer|between:1,7',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
@@ -72,7 +100,7 @@ class DashboardController extends Controller
 
         Driver::create($data);
 
-        return back()->with('success', 'Driver added successfully!');
+        return redirect()->route('dashboard.drivers')->with('success', 'Driver added successfully!');
     }
 
     public function updateDriver(Request $request, Driver $driver): RedirectResponse
@@ -83,6 +111,10 @@ class DashboardController extends Controller
             'whatsapp' => 'nullable|string|max:30',
             'location' => 'nullable|string|max:150',
             'years_experience' => 'nullable|integer|min:0',
+            'work_start' => 'nullable|date_format:H:i',
+            'work_end' => 'nullable|date_format:H:i',
+            'work_days' => 'nullable|array',
+            'work_days.*' => 'integer|between:1,7',
             'is_active' => 'nullable|boolean',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
@@ -94,7 +126,7 @@ class DashboardController extends Controller
         $data['is_active'] = $request->boolean('is_active');
         $driver->update($data);
 
-        return back()->with('success', 'Driver updated successfully!');
+        return redirect()->route('dashboard.drivers')->with('success', 'Driver updated successfully!');
     }
 
     public function destroyDriver(Driver $driver): RedirectResponse
@@ -106,27 +138,40 @@ class DashboardController extends Controller
 
     public function storeTaxi(Request $request): RedirectResponse
     {
+        $isNew = $request->isMethod('POST');
+
         $data = $request->validate([
             'driver_id' => 'required|exists:drivers,id',
             'name' => 'required|string|max:100',
             'type' => 'nullable|string|max:30',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'images' => $isNew ? 'required|array|min:4' : 'nullable|array',
+            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
             'plate_number' => 'nullable|string|max:30',
             'year' => 'nullable|integer',
             'color' => 'nullable|string|max:30',
             'capacity' => 'nullable|string|max:50',
             'luggage' => 'nullable|string|max:50',
+            'is_active' => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('taxis', 'public');
         }
 
+        if ($request->hasFile('images')) {
+            $data['image_gallery'] = array_map(
+                fn ($image) => $image->store('taxis', 'public'),
+                $request->file('images'),
+            );
+        }
+
         $driver = Driver::findOrFail($data['driver_id']);
         unset($data['driver_id']);
+        $data['is_active'] = $request->boolean('is_active', true);
         $driver->taxi()->updateOrCreate(['driver_id' => $driver->id], $data);
 
-        return back()->with('success', 'Taxi saved successfully!');
+        return redirect()->route('dashboard.taxis')->with('success', 'Taxi saved successfully!');
     }
 
     public function destroyTaxi(Driver $driver): RedirectResponse
@@ -136,6 +181,13 @@ class DashboardController extends Controller
         }
 
         return back()->with('success', 'Taxi deleted successfully!');
+    }
+
+    public function toggleTaxiAvailability(Taxi $taxi): RedirectResponse
+    {
+        $taxi->update(['is_active' => ! $taxi->is_active]);
+
+        return back()->with('success', 'Taxi availability updated successfully!');
     }
 
     public function toggleReviewVisibility(Review $review): RedirectResponse

@@ -12,27 +12,43 @@ class Taxi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'driver_id', 'name', 'plate_number', 'image', 'year',
+        'driver_id', 'name', 'plate_number', 'image', 'image_gallery', 'year',
         'color', 'capacity', 'luggage', 'type', 'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'image_gallery' => 'array',
     ];
 
     public function getImageUrlAttribute(): ?string
     {
-        $image = $this->getAttribute('image');
+        return $this->getImages()[0] ?? null;
+    }
 
-        if (! $image) {
-            return null;
+    /**
+     * @return array<int, string>
+     */
+    public function getImages(): array
+    {
+        $gallery = $this->getAttribute('image_gallery') ?? [];
+        $images = is_array($gallery) ? $gallery : (array) json_decode((string) $gallery, true);
+
+        $single = $this->getAttribute('image');
+        if ($single) {
+            array_unshift($images, $single);
         }
 
-        if (preg_match('#^https?://#', $image) || str_starts_with($image, '/')) {
-            return $image;
+        $resolved = [];
+        foreach (array_unique(array_filter($images)) as $path) {
+            if (preg_match('#^https?://#', $path) || str_starts_with($path, '/')) {
+                $resolved[] = $path;
+            } else {
+                $resolved[] = Storage::url($path);
+            }
         }
 
-        return Storage::url($image);
+        return $resolved;
     }
 
     public function driver(): BelongsTo

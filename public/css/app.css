@@ -217,6 +217,23 @@ img {
   align-items: center;
 }
 
+.lang-switch-link {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--dark);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.lang-switch-link:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
 .menu-toggle {
   display: none;
   background: none;
@@ -585,6 +602,40 @@ img {
 
 .driver-location i {
   color: var(--danger);
+}
+
+.driver-hours {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--gray);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.driver-hours i {
+  color: var(--primary);
+}
+
+.hours-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.hours-open {
+  color: var(--success);
+  background: rgba(40, 167, 69, 0.12);
+}
+
+.hours-closed {
+  color: var(--danger);
+  background: rgba(220, 53, 69, 0.12);
 }
 
 .driver-card .btn {
@@ -1640,6 +1691,45 @@ img {
   margin-top: 24px;
 }
 
+/* ==================== FORM PAGES ==================== */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.form-error {
+  display: block;
+  color: var(--danger);
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.form-avatar-preview {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.image-preview-grid img {
+  width: 100%;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
 /* ==================== LOGIN PAGE ==================== */
 .login-body {
   margin: 0;
@@ -1729,6 +1819,13 @@ img {
 .login-card {
   width: 100%;
   max-width: 380px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-card > .lang-switch-link {
+  align-self: flex-end;
+  margin-bottom: 12px;
 }
 
 .login-card-header {
@@ -1815,6 +1912,63 @@ img {
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  color: var(--gray);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--gray-dark);
+  font-weight: 600;
+}
+
+.checkbox-label input {
+  accent-color: var(--primary);
+  width: 16px;
+  height: 16px;
+}
+
+.work-days-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.work-day {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-dark);
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.work-day:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.work-day input {
+  accent-color: var(--primary);
+  width: 15px;
+  height: 15px;
+}
+
+.block-muted {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+.text-muted {
   color: var(--gray);
 }
 
@@ -1989,9 +2143,16 @@ img {
   color: var(--white);
 }
 
+.not-available-badge {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.75;
+  justify-content: center;
+}
+
 .driver-profile-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--gray-light);
 }
 
@@ -2037,16 +2198,55 @@ img {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.vehicle-image-block {
-  height: 400px;
+.vehicle-gallery {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.vehicle-image-block img {
+.vehicle-main-image {
+  width: 100%;
+  height: 260px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--gray-lighter);
+}
+
+.vehicle-main-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  min-height: 260px;
+}
+
+.vehicle-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.vehicle-thumb {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  height: 60px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.vehicle-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vehicle-thumb.active {
+  border-color: var(--primary);
+  transform: scale(0.98);
 }
 
 .vehicle-info-grid {
