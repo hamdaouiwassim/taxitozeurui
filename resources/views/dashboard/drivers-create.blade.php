@@ -9,7 +9,7 @@
       <a href="{{ route('dashboard.drivers') }}" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Drivers</a>
     </div>
     <div class="card settings-card">
-      <form method="POST" action="{{ route('dashboard.drivers.store') }}" enctype="multipart/form-data" class="settings-form">
+      <form method="POST" action="{{ route('dashboard.drivers.store') }}" class="settings-form">
         @csrf
         <div class="form-group">
           <label>Driver Name</label>
@@ -17,8 +17,14 @@
           @error('name') <span class="form-error">{{ $message }}</span> @enderror
         </div>
         <div class="form-group">
-          <label>Driver Avatar</label>
-          <input type="file" name="avatar" accept="image/*">
+          @include('partials.image-uploader', [
+              'field' => 'avatar',
+              'uploadUrl' => route('dashboard.uploads.avatar'),
+              'label' => 'Driver Avatar',
+              'hint' => 'Optional - JPG, PNG, WebP up to 2MB.',
+              'multiple' => false,
+              'initial' => [],
+          ])
         </div>
         <div class="form-group">
           <label>Phone</label>

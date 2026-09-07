@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
                 'rating' => 4.9, 'reviews_count' => 212, 'trips' => 1240, 'years_experience' => 5,
                 'work_start' => '07:00', 'work_end' => '22:00', 'work_days' => [1, 2, 3, 4, 5, 6],
                 'avatar_color' => '2563eb',
-                'taxi' => ['name' => 'Toyota Prius', 'year' => 2022, 'color' => 'White', 'capacity' => '4 Passengers', 'luggage' => '3 Bags', 'type' => 'economy', 'image_gallery' => $gallery],
+                'taxi' => ['name' => 'Toyota Prius', 'year' => 2022, 'color' => '#FFFFFF', 'capacity' => '4 Passengers', 'luggage' => '3 Bags', 'type' => 'economy', 'image_gallery' => $gallery],
             ],
             [
                 'name' => 'Lisa Anderson', 'location' => 'City Center, Tozeur',
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
                 'rating' => 4.8, 'reviews_count' => 178, 'trips' => 980, 'years_experience' => 4,
                 'work_start' => '08:00', 'work_end' => '20:00', 'work_days' => [1, 2, 3, 4, 5],
                 'avatar_color' => '16a34a',
-                'taxi' => ['name' => 'Mercedes C200', 'year' => 2021, 'color' => 'Black', 'capacity' => '4 Passengers', 'luggage' => '3 Bags', 'type' => 'comfort', 'image_gallery' => $gallery],
+                'taxi' => ['name' => 'Mercedes C200', 'year' => 2021, 'color' => '#000000', 'capacity' => '4 Passengers', 'luggage' => '3 Bags', 'type' => 'comfort', 'image_gallery' => $gallery],
             ],
             [
                 'name' => 'Robert Martinez', 'location' => 'Airport, Tozeur',
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
                 'rating' => 4.7, 'reviews_count' => 145, 'trips' => 760, 'years_experience' => 7,
                 'work_start' => '06:00', 'work_end' => '23:00', 'work_days' => [1, 2, 3, 4, 5, 6, 7],
                 'avatar_color' => 'd97706',
-                'taxi' => ['name' => 'Mercedes E200', 'year' => 2020, 'color' => 'Silver', 'capacity' => '4 Passengers', 'luggage' => '3 Bags', 'type' => 'comfort', 'image_gallery' => $gallery],
+                'taxi' => ['name' => 'Mercedes E200', 'year' => 2020, 'color' => '#C0C0C0', 'capacity' => '4 Passengers', 'luggage' => '3 Bags', 'type' => 'comfort', 'image_gallery' => $gallery],
             ],
             [
                 'name' => 'Jessica White', 'location' => 'Palm Grove, Tozeur',
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
                 'rating' => 4.9, 'reviews_count' => 198, 'trips' => 1120, 'years_experience' => 6,
                 'work_start' => '10:00', 'work_end' => '18:00', 'work_days' => [2, 3, 4, 5, 6],
                 'avatar_color' => 'db2777',
-                'taxi' => ['name' => 'BMW 5 Series', 'year' => 2023, 'color' => 'Navy', 'capacity' => '4 Passengers', 'luggage' => '3 Bags', 'type' => 'luxury', 'image_gallery' => $gallery],
+                'taxi' => ['name' => 'BMW 5 Series', 'year' => 2023, 'color' => '#000080', 'capacity' => '4 Passengers', 'luggage' => '3 Bags', 'type' => 'luxury', 'image_gallery' => $gallery],
             ],
         ];
 

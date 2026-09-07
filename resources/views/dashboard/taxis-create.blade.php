@@ -9,7 +9,7 @@
       <a href="{{ route('dashboard.taxis') }}" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Taxis</a>
     </div>
     <div class="card settings-card">
-      <form method="POST" action="{{ route('dashboard.taxis.store') }}" enctype="multipart/form-data" class="settings-form">
+      <form method="POST" action="{{ route('dashboard.taxis.store') }}" class="settings-form">
         @csrf
         <div class="form-group">
           <label>Driver</label>
@@ -37,16 +37,36 @@
         </div>
         <div class="form-group">
           <label>Color</label>
-          <input type="text" name="color" placeholder="e.g. White" value="{{ old('color') }}">
+          @php $colorValue = preg_match('/^#[0-9a-f]{6}$/i', (string) old('color')) ? old('color') : '#FFFFFF'; @endphp
+          <div class="color-input-row">
+            <input type="color" name="color" value="{{ $colorValue }}" class="color-picker">
+            <span class="color-value"></span>
+          </div>
         </div>
         <div class="form-group">
           <label>Capacity</label>
           <input type="text" name="capacity" placeholder="e.g. 4 Passengers" value="{{ old('capacity') }}">
         </div>
         <div class="form-group">
-          <label>Car Images (min 4)</label>
-          <input type="file" name="images[]" accept="image/*" multiple required>
-          <div class="image-preview-grid"></div>
+          @include('partials.image-uploader', [
+              'field' => 'image',
+              'uploadUrl' => route('dashboard.uploads.taxi-image'),
+              'label' => 'Main Image',
+              'hint' => 'Optional - JPG, PNG, WebP up to 2MB.',
+              'multiple' => false,
+              'initial' => [],
+          ])
+        </div>
+        <div class="form-group">
+          @include('partials.image-uploader', [
+              'field' => 'images[]',
+              'fileField' => 'images[]',
+              'uploadUrl' => route('dashboard.uploads.taxi-gallery'),
+              'label' => 'Car Gallery (min 4)',
+              'hint' => 'At least 4 images required - JPG, PNG, WebP up to 2MB.',
+              'multiple' => true,
+              'initial' => [],
+          ])
           @error('images') <span class="form-error">{{ $message }}</span> @enderror
         </div>
         <div class="form-group">
@@ -66,25 +86,13 @@
 
 @push('scripts')
   <script>
-    document.querySelectorAll('input[type="file"][name="images[]"]').forEach(input => {
-      input.addEventListener('change', () => {
-        const grid = input.closest('.form-group').querySelector('.image-preview-grid');
-        if (!grid) return;
-        grid.innerHTML = '';
-        [...input.files].forEach(file => {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.style.width = '60px';
-            img.style.height = '60px';
-            img.style.objectFit = 'cover';
-            img.style.borderRadius = '8px';
-            grid.appendChild(img);
-          };
-          reader.readAsDataURL(file);
-        });
-      });
+    document.querySelectorAll('.color-input-row').forEach(row => {
+      const picker = row.querySelector('.color-picker');
+      const value = row.querySelector('.color-value');
+      if (!picker || !value) return;
+      const render = () => { value.textContent = picker.value.toLowerCase(); };
+      picker.addEventListener('input', render);
+      render();
     });
   </script>
 @endpush

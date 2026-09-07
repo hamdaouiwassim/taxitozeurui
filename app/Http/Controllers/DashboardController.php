@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Driver;
 use App\Models\Review;
 use App\Models\Taxi;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -91,11 +93,11 @@ class DashboardController extends Controller
             'work_end' => 'nullable|date_format:H:i',
             'work_days' => 'nullable|array',
             'work_days.*' => 'integer|between:1,7',
-            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'avatar' => 'nullable|string|max:255',
         ]);
 
-        if ($request->hasFile('avatar')) {
-            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        if (! $request->filled('avatar')) {
+            unset($data['avatar']);
         }
 
         Driver::create($data);
@@ -116,11 +118,11 @@ class DashboardController extends Controller
             'work_days' => 'nullable|array',
             'work_days.*' => 'integer|between:1,7',
             'is_active' => 'nullable|boolean',
-            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'avatar' => 'nullable|string|max:255',
         ]);
 
-        if ($request->hasFile('avatar')) {
-            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        if (! $request->filled('avatar')) {
+            unset($data['avatar']);
         }
 
         $data['is_active'] = $request->boolean('is_active');
@@ -136,6 +138,54 @@ class DashboardController extends Controller
         return back()->with('success', 'Driver deleted successfully!');
     }
 
+    public function uploadAvatar(Request $request): JsonResponse
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        $path = $request->file('file')->store('avatars', 'public');
+
+        return response()->json([
+            'path' => $path,
+            'url' => Storage::url($path),
+        ]);
+    }
+
+    public function uploadTaxiImage(Request $request): JsonResponse
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        $path = $request->file('file')->store('taxis', 'public');
+
+        return response()->json([
+            'path' => $path,
+            'url' => Storage::url($path),
+        ]);
+    }
+
+    public function uploadTaxiGallery(Request $request): JsonResponse
+    {
+        $request->validate([
+            'images' => 'required|array|min:1',
+            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        $paths = array_map(
+            fn ($image) => $image->store('taxis', 'public'),
+            $request->file('images'),
+        );
+
+        $urls = array_map(fn ($path) => Storage::url($path), $paths);
+
+        return response()->json([
+            'paths' => $paths,
+            'urls' => $urls,
+        ]);
+    }
+
     public function storeTaxi(Request $request): RedirectResponse
     {
         $isNew = $request->isMethod('POST');
@@ -144,9 +194,9 @@ class DashboardController extends Controller
             'driver_id' => 'required|exists:drivers,id',
             'name' => 'required|string|max:100',
             'type' => 'nullable|string|max:30',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|string|max:255',
             'images' => $isNew ? 'required|array|min:4' : 'nullable|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'images.*' => 'string|max:255',
             'plate_number' => 'nullable|string|max:30',
             'year' => 'nullable|integer',
             'color' => 'nullable|string|max:30',
@@ -155,15 +205,12 @@ class DashboardController extends Controller
             'is_active' => 'nullable|boolean',
         ]);
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('taxis', 'public');
+        if (! $request->filled('image')) {
+            unset($data['image']);
         }
 
-        if ($request->hasFile('images')) {
-            $data['image_gallery'] = array_map(
-                fn ($image) => $image->store('taxis', 'public'),
-                $request->file('images'),
-            );
+        if ($request->filled('images')) {
+            $data['image_gallery'] = $request->input('images');
         }
 
         $driver = Driver::findOrFail($data['driver_id']);

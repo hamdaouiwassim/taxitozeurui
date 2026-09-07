@@ -248,7 +248,17 @@
             <i class="fas fa-palette"></i>
             <div>
               <small>@lang('Color')</small>
-              <strong>{{ $driver->taxi?->color ?? __('N/A') }}</strong>
+              @php
+                $vehicleColor = $driver->taxi?->color;
+                $isColor = is_string($vehicleColor) && $vehicleColor !== '';
+              @endphp
+              <strong>
+                @if ($isColor)
+                  <span class="color-swatch" style="background-color: {{ $vehicleColor }}" title="{{ $vehicleColor }}" aria-hidden="true"></span>
+                @else
+                  @lang('N/A')
+                @endif
+              </strong>
             </div>
           </div>
           <div class="vehicle-info-item">

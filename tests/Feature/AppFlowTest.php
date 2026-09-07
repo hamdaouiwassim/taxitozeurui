@@ -155,10 +155,12 @@ class AppFlowTest extends TestCase
         $user = User::where('email', 'admin@taxigo.com')->firstOrFail();
 
         $avatar = UploadedFile::fake()->image('avatar.png');
+        $upload = $this->actingAs($user)->post('/dashboard/uploads/avatar', ['file' => $avatar]);
+        $upload->assertOk()->assertJsonStructure(['path', 'url']);
 
         $this->actingAs($user)->post('/dashboard/drivers', [
             'name' => 'Driver With Photo',
-            'avatar' => $avatar,
+            'avatar' => $upload->json('path'),
         ])->assertRedirect();
 
         $driver = Driver::where('name', 'Driver With Photo')->firstOrFail();
@@ -218,16 +220,21 @@ class AppFlowTest extends TestCase
         $user = User::where('email', 'admin@taxigo.com')->firstOrFail();
         $driver = Driver::first();
 
-        $this->actingAs($user)->post('/dashboard/taxis', [
-            'driver_id' => $driver->id,
-            'name' => 'Mercedes E200',
-            'type' => 'luxury',
+        $gallery = $this->actingAs($user)->post('/dashboard/uploads/taxi-gallery', [
             'images' => [
                 UploadedFile::fake()->image('car1.png'),
                 UploadedFile::fake()->image('car2.png'),
                 UploadedFile::fake()->image('car3.png'),
                 UploadedFile::fake()->image('car4.png'),
             ],
+        ]);
+        $gallery->assertOk()->assertJsonStructure(['paths', 'urls']);
+
+        $this->actingAs($user)->post('/dashboard/taxis', [
+            'driver_id' => $driver->id,
+            'name' => 'Mercedes E200',
+            'type' => 'luxury',
+            'images' => $gallery->json('paths'),
         ])->assertRedirect();
 
         $taxi = $driver->fresh()->taxi;
@@ -245,10 +252,7 @@ class AppFlowTest extends TestCase
             'driver_id' => $driver->id,
             'name' => 'Mercedes C300',
             'type' => 'luxury',
-            'images' => [
-                UploadedFile::fake()->image('car1.png'),
-                UploadedFile::fake()->image('car2.png'),
-            ],
+            'images' => ['/uploads/taxis/car1.jpg', '/uploads/taxis/car2.jpg'],
         ]);
 
         $response->assertSessionHasErrors('images');

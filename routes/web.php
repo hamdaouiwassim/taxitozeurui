@@ -62,6 +62,10 @@ Route::prefix('/dashboard')->name('dashboard.')->middleware('auth', 'admin')->gr
     Route::put('/reviews/{review}', [DashboardController::class, 'toggleReviewVisibility'])->name('reviews.toggle');
     Route::delete('/reviews/{review}', [DashboardController::class, 'destroyReview'])->name('reviews.destroy');
 
+    Route::post('/uploads/avatar', [DashboardController::class, 'uploadAvatar'])->name('uploads.avatar');
+    Route::post('/uploads/taxi-image', [DashboardController::class, 'uploadTaxiImage'])->name('uploads.taxi-image');
+    Route::post('/uploads/taxi-gallery', [DashboardController::class, 'uploadTaxiGallery'])->name('uploads.taxi-gallery');
+
     Route::post('/settings', [DashboardController::class, 'updateSettings'])->name('settings');
     Route::post('/profile', [DashboardController::class, 'updateProfile'])->name('profile');
 });
